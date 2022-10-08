@@ -10,7 +10,7 @@ namespace Market.Persistence
     {
         public static void Initialize(UsersDbContext context)
         {
-            context.Database.EnsureCreated();
+            context.Database.EnsureCreated();   
         }
     }
 }

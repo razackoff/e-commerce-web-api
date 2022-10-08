@@ -1,6 +1,14 @@
-﻿namespace Market.Domain
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using MediatR;
+using static Market.Domain.User;
+
+namespace Market.Application.Users.Commands.UpdateUser
 {
-    public class User
+    public class UpdateUserCommand : IRequest
     {
         public Guid Id { get; set; }
         public int PhoneNumber { get; set; }
@@ -12,12 +20,5 @@
         public string Locality { get; set; }
         public gender Gender { get; set; }
         public string Email { get; set; }
-        public DateTime CreationDate { get; set; }
-        public DateTime EditDate { get; set; }
-        public enum gender
-        {
-            Male,
-            Female
-        }
     }
 }

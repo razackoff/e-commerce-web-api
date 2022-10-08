@@ -1,6 +1,10 @@
-﻿namespace Market.Domain
+﻿using System;
+using MediatR;
+using static Market.Domain.User;
+
+namespace Market.Application.Users.Commands.CreateUser
 {
-    public class User
+    public class CreateUserCommand : IRequest<Guid>
     {
         public Guid Id { get; set; }
         public int PhoneNumber { get; set; }
@@ -12,12 +16,5 @@
         public string Locality { get; set; }
         public gender Gender { get; set; }
         public string Email { get; set; }
-        public DateTime CreationDate { get; set; }
-        public DateTime EditDate { get; set; }
-        public enum gender
-        {
-            Male,
-            Female
-        }
     }
 }
