@@ -1,12 +1,10 @@
-﻿using System;
-using MediatR;
+﻿  using MediatR;
 using static Market.Domain.User;
 
 namespace Market.Application.Users.Commands.CreateUser
 {
     public class CreateUserCommand : IRequest<Guid>
     {
-        public Guid Id { get; set; }
         public int PhoneNumber { get; set; }
         public string Password { get; set; }
         public string FirstName { get; set; }

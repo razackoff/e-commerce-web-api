@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MediatR;
 using System.Reflection;
+using FluentValidation;
+using Market.Application.Common.Behaviors;
 
 namespace Market.Application
 {
@@ -10,6 +12,11 @@ namespace Market.Application
             this IServiceCollection services)
         {
             services.AddMediatR(Assembly.GetExecutingAssembly());
+            services
+                .AddValidatorsFromAssemblies(new[] { Assembly
+                    .GetExecutingAssembly() });
+            services.AddTransient(typeof(IPipelineBehavior<,>),
+                typeof(ValidationBehavoir<,>));
             return services;
         }
     }

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Market.Application.Common.Exceptions;
 using Market.Domain;
 
+
 namespace Market.Application.Users.Queries.GetUserDetails
 {
     public class GetUserDetailsQueryHandler

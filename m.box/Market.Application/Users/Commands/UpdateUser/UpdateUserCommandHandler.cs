@@ -29,7 +29,6 @@ namespace Market.Application.Users.Commands.UpdateUser
             }
 
             entity.PhoneNumber = request.PhoneNumber;
-            entity.PhoneNumber = request.PhoneNumber;
             entity.Password = request.Password;
             entity.FirstName = request.FirstName;
             entity.SecondName = request.SecondName;

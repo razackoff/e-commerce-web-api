@@ -1,0 +1,90 @@
+﻿using Market.Application.Users.Queries.GetUserDetails;
+using Market.Application.Users.Queries.GetUserList;
+using Market.WebAPI.Models;
+using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Market.Application.Users.Commands.CreateUser;
+using Market.Application.Users.Commands.UpdateUser;
+using Market.Application.Users.Commands.DeleteCommand;
+
+namespace Market.WebAPI.Controllers
+{
+    public class clss
+    {
+        public int i1 { get; set; }
+        public int i2 { get; set; }
+    }
+
+    [Route("api/[controller]")]
+    public class UserController : BaseController
+    {
+        private readonly IMapper mapper;
+
+        public UserController(IMapper mapper) => this.mapper = mapper;
+
+        clss[] cl = new clss[2];
+
+
+        [HttpGet("clss")]
+        public IEnumerable<clss> GetAllProducts()
+        {
+            return cl;  
+        }
+
+        [HttpGet("GetAllUsers")]
+        public async Task<ActionResult<UserListVm>> GetAll()
+        {
+            var query = new GetUserListQuery
+            {
+                
+            };
+            var vm = await Mediator.Send(query);
+            return Ok(vm);
+        }
+
+        [HttpGet("GetUserById/{id}")]
+        public async Task<ActionResult<UserDetailsVm>> Get(Guid id)
+        {
+            var query = new GetUserDetailsQuery
+            {
+                Id = id
+            };
+            var vm = await Mediator.Send(query);
+            return Ok(vm);
+        }
+
+        [HttpPost("CreateUser")]
+        public async Task<ActionResult<Guid>> Create([FromBody] CreateUserDto createUserDto)
+        {
+            var command = mapper.Map<CreateUserCommand>(createUserDto);
+            var userId = await Mediator.Send(command);
+            return Ok(userId);
+        }
+
+        [HttpPut("UpdateUser")]
+        public async Task<IActionResult> Update([FromBody] UpdateUserDto updateUserDto)
+        {
+            var command = mapper.Map<UpdateUserCommand>(updateUserDto);
+            command.Id = Id;
+            await Mediator.Send(command);
+            return NoContent();
+        }
+
+        [HttpDelete("DeleteUser/{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var command = new DeleteUserCommand
+            {
+                Id = id
+            };
+            await Mediator.Send(command);
+            return NoContent();
+        }
+
+    }
+}

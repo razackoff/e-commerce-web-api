@@ -46,7 +46,7 @@ namespace Market.Application.Users.Queries.GetUserDetails
                 .ForMember(userVm => userVm.CreationDate,
                     opt => opt.MapFrom(user => user.CreationDate))
                 .ForMember(userVm => userVm.EditDate,
-                    opt => opt.MapFrom(user => user.EditDate))
+                    opt => opt.MapFrom(user => user.EditDate));
         }
     }
 }

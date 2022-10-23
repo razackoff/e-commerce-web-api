@@ -16,7 +16,7 @@ namespace Market.Persistence
                 options.UseSqlite(connectionString);
             });
 
-            services.AddScoped <IUserDbContext>(provider =>
+            services.AddScoped<IUserDbContext>(provider =>
                 provider.GetService<UsersDbContext>());
 
             return services;

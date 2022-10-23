@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Market.Domain": {
+      "commandName": "Project"
+    },
+    "Профиль 1": {
+      "commandName": "Executable",
+      "executablePath": "E:\\Repos\\M.BOX.BACKEND\\m.box\\Market.WebAPI\\Market.WebAPI.csproj"
+    }
+  }
+}

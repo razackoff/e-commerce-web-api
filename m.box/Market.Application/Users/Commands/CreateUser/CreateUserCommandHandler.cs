@@ -20,7 +20,6 @@ namespace Market.Application.Users.Commands.CreateUser
         {
             var user = new User
             {
-                Id = request.Id,
                 PhoneNumber = request.PhoneNumber,
                 Password = request.Password,
                 FirstName = request.FirstName,

@@ -22,7 +22,7 @@ namespace Market.Application.Users.Queries.GetUserList
             CancellationToken cancellationToken)
         {
             var usersQuery = await dbContext.Users
-                .Where(user => user.Id == request.Id)
+                .Where(user => user.Id != Guid.Empty)
                 .ProjectTo<UserLookupDto>(mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

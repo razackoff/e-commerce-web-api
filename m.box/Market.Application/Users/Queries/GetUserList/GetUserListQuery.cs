@@ -1,14 +1,10 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static Market.Domain.User;
 
 namespace Market.Application.Users.Queries.GetUserList
 {
     public class GetUserListQuery : IRequest<UserListVm>
     {
-        public Guid Id { get; set; }
+        
     }
 }
