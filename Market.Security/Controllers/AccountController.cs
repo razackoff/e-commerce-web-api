@@ -10,18 +10,13 @@ namespace Market.Security.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ProfileController : ControllerBase
+    public class AccountController : ControllerBase
     {
         private readonly JWTSettings _options;
 
-        public ProfileController(IOptions<JWTSettings> optAcces)
+        public AccountController(IOptions<JWTSettings> optAcces)
         {
             _options = optAcces.Value;
-            Console.WriteLine("****");
-            Console.WriteLine(_options.SecretKey);
-            Console.WriteLine(_options.Issuer);
-            Console.WriteLine(_options.Audience);
-            Console.WriteLine("****");
         }
             
         [HttpGet("GetToken")]

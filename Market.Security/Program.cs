@@ -1,6 +1,8 @@
 using Market.Security;
+using Market.Security.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -8,19 +10,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+var connectionStringUsers = builder.Configuration.GetConnectionString("UserDB");
+builder.Services.AddDbContext<UserDbContext>(options => options.UseSqlite(connectionStringUsers));
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<UserDbContext>();
+
 builder.Services.Configure<JWTSettings>(builder.Configuration.GetSection("JWTSettings"));
 
 //секретные строки, которые знает только сервер
 var secretKey = builder.Configuration.GetSection("JWTSettings:SecretKey").Value;
 var issuer = builder.Configuration.GetSection("JWTSettings:Issuer").Value;
 var audience = builder.Configuration.GetSection("JWTSettings:Audience").Value;
-var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("qwertyuiqwertyui"));
-
-Console.WriteLine("---");
-Console.WriteLine(secretKey);
-Console.WriteLine(issuer);
-Console.WriteLine(audience);
-Console.WriteLine("---");
+var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 
 builder.Services.AddAuthentication(options =>
 {
