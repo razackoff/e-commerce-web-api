@@ -14,11 +14,6 @@ using Market.Application.Users.Commands.DeleteCommand;
 
 namespace Market.WebAPI.Controllers
 {
-    public class clss
-    {
-        public int i1 { get; set; }
-        public int i2 { get; set; }
-    }
 
     [Route("api/[controller]")]
     public class UserController : BaseController
@@ -26,15 +21,6 @@ namespace Market.WebAPI.Controllers
         private readonly IMapper mapper;
 
         public UserController(IMapper mapper) => this.mapper = mapper;
-
-        clss[] cl = new clss[2];
-
-
-        [HttpGet("clss")]
-        public IEnumerable<clss> GetAllProducts()
-        {
-            return cl;  
-        }
 
         [HttpGet("GetAllUsers")]
         public async Task<ActionResult<UserListVm>> GetAll()

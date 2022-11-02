@@ -31,7 +31,7 @@ namespace Market.Identity.Data
                 entity.ToTable("UserLogins"));
 
             builder.Entity<IdentityUserToken<string>>(entity =>
-                entity.ToTable("UserTokens");
+                entity.ToTable("UserTokens"));
 
             builder.Entity<IdentityRoleClaim<string>>(entity =>
                 entity.ToTable("RoleClaims"));
