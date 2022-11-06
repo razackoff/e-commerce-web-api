@@ -4,6 +4,7 @@ using Market.Application.Common.Mappings;
 using Market.Application.Interfaces;
 using Market.Application;
 using Market.WebAPI.Middleware;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,20 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddAuthentication(config =>
+{
+    config.DefaultAuthenticateScheme =
+        JwtBearerDefaults.AuthenticationScheme;
+    config.DefaultChallengeScheme =
+        JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.Authority = "https://localhost:5005";
+        options.Audience = "MarketWebAPI";
+        options.RequireHttpsMetadata = false;
+    });
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -44,6 +59,9 @@ app.UseCustomExceptionHandler();
 
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseRouting();
 app.UseHttpsRedirection();

@@ -92,5 +92,13 @@ namespace Market.Identity.Controllers
             ModelState.AddModelError(string.Empty, "Login error");
             return View(viewModel);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Logout(string logoutId)
+        {
+            await _signInManager.SignOutAsync();
+            var logoutRequest = await _interaction.GetLogoutContextAsync(logoutId);
+            return Redirect(logoutRequest.PostLogoutRedirectUri); 
+        }
     }
 }

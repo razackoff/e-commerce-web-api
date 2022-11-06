@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Market.Application.Users.Commands.CreateUser;
 using Market.Application.Users.Commands.UpdateUser;
 using Market.Application.Users.Commands.DeleteCommand;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Market.WebAPI.Controllers
 {
@@ -23,6 +24,7 @@ namespace Market.WebAPI.Controllers
         public UserController(IMapper mapper) => this.mapper = mapper;
 
         [HttpGet("GetAllUsers")]
+        [Authorize]
         public async Task<ActionResult<UserListVm>> GetAll()
         {
             var query = new GetUserListQuery
@@ -34,6 +36,7 @@ namespace Market.WebAPI.Controllers
         }
 
         [HttpGet("GetUserById/{id}")]
+        [Authorize]
         public async Task<ActionResult<UserDetailsVm>> Get(Guid id)
         {
             var query = new GetUserDetailsQuery
@@ -45,6 +48,7 @@ namespace Market.WebAPI.Controllers
         }
 
         [HttpPost("CreateUser")]
+        [Authorize]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateUserDto createUserDto)
         {
             var command = mapper.Map<CreateUserCommand>(createUserDto);
@@ -53,6 +57,7 @@ namespace Market.WebAPI.Controllers
         }
 
         [HttpPut("UpdateUser")]
+        [Authorize]
         public async Task<IActionResult> Update([FromBody] UpdateUserDto updateUserDto)
         {
             var command = mapper.Map<UpdateUserCommand>(updateUserDto);
@@ -62,6 +67,7 @@ namespace Market.WebAPI.Controllers
         }
 
         [HttpDelete("DeleteUser/{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(Guid id)
         {
             var command = new DeleteUserCommand
