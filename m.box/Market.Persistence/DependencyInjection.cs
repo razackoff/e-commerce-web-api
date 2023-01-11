@@ -11,13 +11,13 @@ namespace Market.Persistence
             services, IConfiguration configuration)
         {
             var connectionString = configuration["DbConnection"];
-            services.AddDbContext<UsersDbContext>(options =>
+            services.AddDbContext<ProductDbContext>(options =>
             {
                 options.UseSqlite(connectionString);
             });
 
-            services.AddScoped<IUserDbContext>(provider =>
-                provider.GetService<UsersDbContext>());
+            services.AddScoped<IProductDbContext>(provider =>
+                provider.GetService<ProductDbContext>());
 
             return services;
         }

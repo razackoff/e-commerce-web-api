@@ -8,7 +8,7 @@ namespace Market.Persistence
 {
     public class DbInitializer
     {
-        public static void Initialize(UsersDbContext context)
+        public static void Initialize(ProductDbContext context)
         {
             context.Database.EnsureCreated();   
         }

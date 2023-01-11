@@ -6,34 +6,34 @@ using Market.Application.Common.Exceptions;
 using Market.Domain;
 
 
-namespace Market.Application.Users.Queries.GetUserDetails
+namespace Market.Application.Products.Queries.GetProductDetails
 {
-    public class GetUserDetailsQueryHandler
-        : IRequestHandler<GetUserDetailsQuery, UserDetailsVm> 
+    public class GetProductDetailsQueryHandler
+        : IRequestHandler<GetProductDetailsQuery, ProductDetailsVm> 
     {
-        private readonly IUserDbContext dbContext;
+        private readonly IProductDbContext dbContext;
         private readonly IMapper mapper;
 
-        public GetUserDetailsQueryHandler(IUserDbContext dbContext, 
+        public GetProductDetailsQueryHandler(IProductDbContext dbContext, 
             IMapper mapper)
         {
             this.dbContext = dbContext;
             this.mapper = mapper;
         }
 
-        public async Task<UserDetailsVm> Handle(GetUserDetailsQuery request,  
+        public async Task<ProductDetailsVm> Handle(GetProductDetailsQuery request,  
             CancellationToken cancellationToken) 
         {
-            var entity = await dbContext.Users
+            var entity = await dbContext.Products
                 .FirstOrDefaultAsync(user =>
                 user.Id == request.Id, cancellationToken);
 
             if (entity == null || entity.Id != request.Id)
             {
-                throw new NotFoundException(nameof(User), request.Id);
+                throw new NotFoundException(nameof(Product), request.Id);
             }
 
-            return mapper.Map<UserDetailsVm>(entity); 
+            return mapper.Map<ProductDetailsVm>(entity); 
         }
     }
 }

@@ -5,15 +5,15 @@ using Market.Persistence.EntityTypeConfigurations;
 
 namespace Market.Persistence
 {
-    public class UsersDbContext : DbContext, IUserDbContext
+    public class ProductDbContext : DbContext, IProductDbContext
     {
-        public DbSet<User> Users { get; set; }
-        public UsersDbContext(DbContextOptions<UsersDbContext> options)
+        public DbSet<Product> Products { get; set; }
+        public ProductDbContext(DbContextOptions<ProductDbContext> options)
             :base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new ProductConfiguration());
             base.OnModelCreating(builder);
         }
     }

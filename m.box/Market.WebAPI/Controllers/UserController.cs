@@ -1,5 +1,5 @@
-﻿using Market.Application.Users.Queries.GetUserDetails;
-using Market.Application.Users.Queries.GetUserList;
+﻿using Market.Application.Products.Queries.GetProductDetails;
+using Market.Application.Products.Queries.GetProductList;
 using Market.WebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
@@ -8,9 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Market.Application.Users.Commands.CreateUser;
-using Market.Application.Users.Commands.UpdateUser;
-using Market.Application.Users.Commands.DeleteCommand;
+using Market.Application.Products.Commands.CreateProduct;
+using Market.Application.Products.Commands.UpdateProduct;
+using Market.Application.Products.Commands.DeleteProduct;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Market.WebAPI.Controllers
@@ -25,9 +25,9 @@ namespace Market.WebAPI.Controllers
 
         [HttpGet("GetAllUsers")]
         [Authorize]
-        public async Task<ActionResult<UserListVm>> GetAll()
+        public async Task<ActionResult<ProductListVm>> GetAll()
         {
-            var query = new GetUserListQuery
+            var query = new GetProductListQuery
             {
                 
             };
@@ -37,9 +37,9 @@ namespace Market.WebAPI.Controllers
 
         [HttpGet("GetUserById/{id}")]
         [Authorize]
-        public async Task<ActionResult<UserDetailsVm>> Get(Guid id)
+        public async Task<ActionResult<ProductDetailsVm>> Get(Guid id)
         {
-            var query = new GetUserDetailsQuery
+            var query = new GetProductDetailsQuery
             {
                 Id = id
             };
@@ -49,18 +49,18 @@ namespace Market.WebAPI.Controllers
 
         [HttpPost("CreateUser")]
         [Authorize]
-        public async Task<ActionResult<Guid>> Create([FromBody] CreateUserDto createUserDto)
+        public async Task<ActionResult<Guid>> Create([FromBody] CreateProductDto createUserDto)
         {
-            var command = mapper.Map<CreateUserCommand>(createUserDto);
+            var command = mapper.Map<CreateProductCommand>(createUserDto);
             var userId = await Mediator.Send(command);
             return Ok(userId);
         }
 
         [HttpPut("UpdateUser")]
         [Authorize]
-        public async Task<IActionResult> Update([FromBody] UpdateUserDto updateUserDto)
+        public async Task<IActionResult> Update([FromBody] UpdateProductDto updateUserDto)
         {
-            var command = mapper.Map<UpdateUserCommand>(updateUserDto);
+            var command = mapper.Map<UpdateProductCommand>(updateUserDto);
             command.Id = Id;
             await Mediator.Send(command);
             return NoContent();
@@ -70,7 +70,7 @@ namespace Market.WebAPI.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var command = new DeleteUserCommand
+            var command = new DeleteProductCommand
             {
                 Id = id
             };

@@ -16,7 +16,7 @@ builder.Services.AddAutoMapper(config =>
     config.AddProfile(new 
         AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
     config.AddProfile(new 
-        AssemblyMappingProfile(typeof(IUserDbContext).Assembly));
+        AssemblyMappingProfile(typeof(IProductDbContext).Assembly));
 });
 
 builder.Services.AddApplication();
@@ -76,7 +76,7 @@ using (var scope = app.Services.CreateScope())
     var serviceProvider = scope.ServiceProvider;
     try
     {
-        var context = serviceProvider.GetRequiredService<UsersDbContext>();
+        var context = serviceProvider.GetRequiredService<ProductDbContext>();
         DbInitializer.Initialize(context); 
     }
     catch(Exception exception)

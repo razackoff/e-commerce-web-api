@@ -4,30 +4,30 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Market.Domain;
 
-namespace Market.Application.Users.Commands.DeleteCommand
+namespace Market.Application.Products.Commands.DeleteProduct
 {
-    public class DeleteUserCommandHandler
-        : IRequestHandler<DeleteUserCommand>
+    public class DeleteProductCommandHandler
+        : IRequestHandler<DeleteProductCommand>
     {
-        private readonly IUserDbContext dbContext;
+        private readonly IProductDbContext dbContext;
 
-        public DeleteUserCommandHandler(IUserDbContext dbContext)
+        public DeleteProductCommandHandler(IProductDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        public async Task<Unit> Handle(DeleteUserCommand request,
+        public async Task<Unit> Handle(DeleteProductCommand request,
             CancellationToken cancellationToken)
         {
-            var entity = await dbContext.Users
+            var entity = await dbContext.Products
                 .FindAsync(new object[] { request.Id }, cancellationToken);
 
             if (entity == null || entity.Id != request.Id)
             {
-                throw new NotFoundException(nameof(User), request.Id);
+                throw new NotFoundException(nameof(Product), request.Id);
             }
 
-            dbContext.Users.Remove(entity);
+            dbContext.Products.Remove(entity);
             await dbContext.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;

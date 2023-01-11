@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Market.Application.Interfaces
 {
-    public interface IUserDbContext
+    public interface IProductDbContext
     {
-        DbSet<User> Users { get; set; }
+        DbSet<Product> Products { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
