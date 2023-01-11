@@ -17,13 +17,13 @@ namespace Market.WebAPI.Controllers
 {
 
     [Route("api/[controller]")]
-    public class UserController : BaseController
+    public class ProductController : BaseController
     {
         private readonly IMapper mapper;
 
-        public UserController(IMapper mapper) => this.mapper = mapper;
+        public ProductController(IMapper mapper) => this.mapper = mapper;
 
-        [HttpGet("GetAllUsers")]
+        [HttpGet("GetAllProducts")]
         [Authorize]
         public async Task<ActionResult<ProductListVm>> GetAll()
         {
@@ -35,7 +35,7 @@ namespace Market.WebAPI.Controllers
             return Ok(vm);
         }
 
-        [HttpGet("GetUserById/{id}")]
+        [HttpGet("GetProductById/{id}")]
         [Authorize]
         public async Task<ActionResult<ProductDetailsVm>> Get(Guid id)
         {
@@ -47,16 +47,19 @@ namespace Market.WebAPI.Controllers
             return Ok(vm);
         }
 
-        [HttpPost("CreateUser")]
+        [HttpPost("CreateProduct")]
         [Authorize]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateProductDto createUserDto)
         {
             var command = mapper.Map<CreateProductCommand>(createUserDto);
-            var userId = await Mediator.Send(command);
-            return Ok(userId);
+            var Id = await Mediator.Send(command);
+            Console.WriteLine("Created product:");
+            Console.WriteLine("    Id = " + Id.ToString());
+            Console.WriteLine("    Id = " + command.UserId.ToString());
+            return Ok(Id);
         }
 
-        [HttpPut("UpdateUser")]
+        [HttpPut("UpdateProduct")]
         [Authorize]
         public async Task<IActionResult> Update([FromBody] UpdateProductDto updateUserDto)
         {
@@ -66,7 +69,7 @@ namespace Market.WebAPI.Controllers
             return NoContent();
         }
 
-        [HttpDelete("DeleteUser/{id}")]
+        [HttpDelete("DeleteProduct/{id}")]
         [Authorize]
         public async Task<IActionResult> Delete(Guid id)
         {
