@@ -15,8 +15,8 @@ namespace Market.Application
             services
                 .AddValidatorsFromAssemblies(new[] { Assembly
                     .GetExecutingAssembly() });
-            services.AddTransient(typeof(IPipelineBehavior<,>),
-                typeof(ValidationBehavoir<,>));
+            /*services.AddTransient(typeof(IPipelineBehavior<,>),
+                typeof(ValidationBehavoir<,>));*/
             return services;
         }
     }

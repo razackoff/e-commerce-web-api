@@ -24,19 +24,14 @@ namespace Market.WebAPI.Controllers
         public ProductController(IMapper mapper) => this.mapper = mapper;
 
         [HttpGet("GetAllProducts")]
-        [Authorize]
         public async Task<ActionResult<ProductListVm>> GetAll()
         {
-            var query = new GetProductListQuery
-            {
-                
-            };
+            var query = new GetProductListQuery();
             var vm = await Mediator.Send(query);
             return Ok(vm);
         }
 
         [HttpGet("GetProductById/{id}")]
-        [Authorize]
         public async Task<ActionResult<ProductDetailsVm>> Get(Guid id)
         {
             var query = new GetProductDetailsQuery
@@ -48,29 +43,23 @@ namespace Market.WebAPI.Controllers
         }
 
         [HttpPost("CreateProduct")]
-        [Authorize]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateProductDto createUserDto)
         {
             var command = mapper.Map<CreateProductCommand>(createUserDto);
             var Id = await Mediator.Send(command);
-            Console.WriteLine("Created product:");
-            Console.WriteLine("    Id = " + Id.ToString());
-            Console.WriteLine("    Id = " + command.UserId.ToString());
             return Ok(Id);
         }
 
         [HttpPut("UpdateProduct")]
-        [Authorize]
-        public async Task<IActionResult> Update([FromBody] UpdateProductDto updateUserDto)
+        public async Task<IActionResult> Update([FromBody] UpdateProductDto updateProductDto)
         {
-            var command = mapper.Map<UpdateProductCommand>(updateUserDto);
-            command.Id = Id;
+            var command = mapper.Map<UpdateProductCommand>(updateProductDto);
+            command.Id = updateProductDto.Id;
             await Mediator.Send(command);
             return NoContent();
         }
 
         [HttpDelete("DeleteProduct/{id}")]
-        [Authorize]
         public async Task<IActionResult> Delete(Guid id)
         {
             var command = new DeleteProductCommand

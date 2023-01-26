@@ -10,7 +10,7 @@ namespace Market.Application.Products.Commands.UpdateProduct
         : IRequestHandler<UpdateProductCommand>
     {
         private readonly IProductDbContext dbContext;
-
+        
         public UpdateProductCommandHandler(IProductDbContext dbContext)
         {
             this.dbContext = dbContext;
@@ -19,8 +19,8 @@ namespace Market.Application.Products.Commands.UpdateProduct
             CancellationToken cancellationToken)
         {
             var entity = 
-                await dbContext.Products.FirstOrDefaultAsync(user => 
-                user.Id == request.Id, cancellationToken);
+                await dbContext.Products.FirstOrDefaultAsync(products => 
+                products.Id == request.Id, cancellationToken);
 
             if (entity == null || entity.Id != request.Id)
             {
